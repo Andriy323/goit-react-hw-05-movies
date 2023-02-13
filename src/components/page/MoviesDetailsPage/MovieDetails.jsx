@@ -34,11 +34,11 @@ const MovieDetails = () => {
         {'<== Back'}
       </button>
       <div className={css.containerImage}>
-        <img
+       {poster_path &&  <img
           className={css.image}
           src={`https://image.tmdb.org/t/p/original${poster_path}`}
           alt={original_title}
-        />
+        />}
         <div>
           <ul className={css.list}>
             <li className={css.item}>

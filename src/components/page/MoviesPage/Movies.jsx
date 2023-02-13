@@ -5,11 +5,9 @@ import RenderFilms from 'components/RenderFilms/RenderFilms';
 import { getFilmsSearch } from 'components/shared/shared';
 
 const Movies = () => {
-  //   const [search, setSearch] = useState('');
   const [items, setItems] = useState([]);
   const [searchParams, setSearchParams] = useSearchParams();
   const search = searchParams.get('search');
-  console.log(search, 'namee');
   const location = useLocation();
   useEffect(() => {
     if (!search) {
@@ -19,7 +17,6 @@ const Movies = () => {
       try {
         const { results } = await getFilmsSearch(search);
         setItems([...results]);
-        console.log(results);
       } catch (error) {
         console.log(error);
       }
@@ -28,7 +25,6 @@ const Movies = () => {
   }, [search]);
 
   const onHangleSubmit = query => {
-    console.log(query, 'father');
     setSearchParams({ search: query });
   };
 

@@ -21,9 +21,9 @@ const Reviews = () => {
     };
     fetchFilmsRevievs();
   }, [movieId]);
-  const item = state.data.map(({ content, author }, index) => (
+  const item = state.data.map(({ content, author, created_at }, index) => (
     <li className={css.item} key={index}>
-      <h2 className={css.title}>Name: {author}</h2>
+      <h2 className={css.title}>Author: {author} created {new Date(created_at).toDateString()} </h2>
       <p className={css.pretitle}>{content}</p>
     </li>
   ));

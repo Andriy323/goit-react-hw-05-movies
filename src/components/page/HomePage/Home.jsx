@@ -7,12 +7,12 @@ const Home = () => {
     error: null,
     films: [],
   });
+
   const location = useLocation();
   useEffect(() => {
     const fetchTraidingFilms = async () => {
       try {
         const { results } = await getTraidingFilms();
-        console.log(results);
         setState(prevState => {
           return { ...prevState, films: [...prevState.films, ...results] };
         });
