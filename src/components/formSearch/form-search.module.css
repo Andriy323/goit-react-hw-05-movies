@@ -4,8 +4,10 @@
     display: flex;
 justify-content: center;
 align-items: center;
+margin-bottom: 30px;
 }
 .btn {
+  margin-left: 15px;
     width: 120px;
     height: 44px;
     text-align: center;
