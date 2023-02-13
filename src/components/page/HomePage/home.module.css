@@ -10,9 +10,7 @@
     grid-template-columns: repeat(auto-fit, 250px);
     gap: 16px;
 }
-.items{
-   
-}
+
 .imgContainer {
     --uiMaskClipPath: var(--maskClipPath);
     box-sizing: var(--maskBoxSizing, border-box);

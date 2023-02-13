@@ -3,7 +3,6 @@ import { useState, useEffect } from 'react';
 import FormSearch from 'components/formSearch/FormSearch';
 import { getFilmsSearch } from 'components/shared/shared';
 import { Link } from 'react-router-dom';
-import css from './movies.module.css'
 const Movies = () => {
   //   const [search, setSearch] = useState('');
   const [items, setItems] = useState([]);

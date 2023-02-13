@@ -2,7 +2,6 @@ import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { getFilmsReviews } from 'components/shared/shared';
 import MovieDetails from '../MoviesDetailsPage/MovieDetails';
-import css from './reviews.module.css'
 const Reviews = () => {
     const [state, setState] = useState({
         data: [],

@@ -2,7 +2,6 @@ import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { getFilmsCredits } from 'components/shared/shared';
 import MovieDetails from '../MoviesDetailsPage/MovieDetails';
-import css from './cast.module.css'
 const Cast = () => {
   const [state, setState] = useState({
     item: [],
