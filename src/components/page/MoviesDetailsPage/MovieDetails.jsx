@@ -1,18 +1,16 @@
-import { useParams, Link, useNavigate, useLocation } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useParams, Link, useNavigate, useLocation, Outlet } from 'react-router-dom';
+import { useEffect, useState, memo } from 'react';
 import { getFilmsId } from 'components/shared/shared';
 import PropTypes from 'prop-types';
 import css from './movies-details.module.css';
-const MovieDetails = ({ itemRevievs, itemCast }) => {
+const MovieDetails = () => {
   const [state, setState] = useState({
     item: {},
     error: null,
     loading: false,
   });
-  console.log(state);
   const navigate = useNavigate();
   const location = useLocation();
-  console.log(location, '----------');
   const from = location.state?.from || '/movies';
 
   const { movieId } = useParams();
@@ -30,7 +28,7 @@ const MovieDetails = ({ itemRevievs, itemCast }) => {
   const Back = () => {
     navigate(from);
   };
-  const { original_title, overview, popularity, poster_path } = state.item;
+  const { original_title, overview,  poster_path, vote_average } = state.item;
   return (
     <div className={css.container}>
       <button className={css.btnBack} onClick={Back}>
@@ -51,7 +49,7 @@ const MovieDetails = ({ itemRevievs, itemCast }) => {
               <p className={css.pretitle}>{overview}</p>
             </li>
             <li className={css.item}>
-              <p className={css.pretitle}>Popularity: {popularity}</p>
+              <p className={css.pretitle}>Rating: {Number(vote_average).toFixed(1)}</p>
             </li>
           </ul>
           <Link state={{ from }} to={`/movies/${movieId}/cast`}>
@@ -63,13 +61,12 @@ const MovieDetails = ({ itemRevievs, itemCast }) => {
         </div>
       </div>
 
-      {itemRevievs}
-      {itemCast}
+      <Outlet/>
     </div>
   );
 };
 
-export default MovieDetails;
+export default memo(MovieDetails);
 
 MovieDetails.propTypes = {
   itemRevievs: PropTypes.array,

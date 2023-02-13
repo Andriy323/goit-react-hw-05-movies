@@ -26,7 +26,7 @@ const Home = () => {
 
   const item = state.films.map(({ id, title, poster_path, adult, release_date }, index) => (
     <li key={index} className={css.items}>
-      <Link state={{ from: location }} to={`/movies/${id}`}>
+      <Link state={{ from: location }} className={css.link} to={`/movies/${id}`}>
         <div className={css.imgContainer+ " " + css.maskOne + " " + css.maskOneFrame}>
         <img
         className={css.image}
@@ -34,10 +34,11 @@ const Home = () => {
           alt={title}
         /></div>
 
-        
+        <div>
         <h1 className={css.title}>{title}</h1>
         {!adult && <p className={css.pretitle}>+18</p>}
         <p className={css.pretitle}>{release_date}</p>
+        </div>
       </Link>
     </li>
   ));

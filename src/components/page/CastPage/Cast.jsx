@@ -1,7 +1,6 @@
 import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { getFilmsCredits } from 'components/shared/shared';
-import MovieDetails from '../MoviesDetailsPage/MovieDetails';
 const Cast = () => {
   const [state, setState] = useState({
     item: [],
@@ -10,12 +9,10 @@ const Cast = () => {
   });
 
   const { movieId } = useParams();
-  console.log(movieId);
   useEffect(() => {
     const fetchFilmsCast = async () => {
       try {
         const { cast } = await getFilmsCredits(movieId);
-        console.log(cast, '----------');
         setState(prevState => {
           return { prevState, item: [...cast] };
         });
@@ -34,7 +31,9 @@ const Cast = () => {
   ));
   return (
     <div>
-      <MovieDetails itemCast={items}/>
+      <ul>
+      {items}
+      </ul>
     </div>
   );
 };

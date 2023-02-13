@@ -20,6 +20,10 @@
   cursor: pointer;
 }
 
+.btnBack:hover {
+  background-position: 0 0;
+}
+
 .title {
   font-size: 36px;
   color: white;
@@ -64,6 +68,4 @@
 .btn:first-child {
   margin-right: 30px;
 }
-.btnBack:hover {
-  background-position: 0 0;
-}
+
