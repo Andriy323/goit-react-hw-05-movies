@@ -30,8 +30,8 @@ const MovieDetails = () => {
   };
   const { original_title, overview,  poster_path, vote_average } = state.item;
   return (
-    <div className={css.container}>
-      <button className={css.btnBack} onClick={Back}>
+    <>
+     <button className={css.btnBack} onClick={Back}>
         {'<== Back'}
       </button>
       <div className={css.containerImage}>
@@ -62,7 +62,8 @@ const MovieDetails = () => {
       </div>
 
       <Outlet/>
-    </div>
+    </>
+     
   );
 };
 

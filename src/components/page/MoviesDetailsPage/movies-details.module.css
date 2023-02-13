@@ -7,6 +7,9 @@
   flex-direction: row;
 }
 .btnBack {
+  position: absolute;
+  left: 21px;
+    top: 105px;
   width: 120px;
   height: 44px;
   text-align: center;
