@@ -4,7 +4,6 @@ import { useLocation } from 'react-router-dom';
 import RenderFilms from 'components/RenderFilms/RenderFilms';
 const Home = () => {
   const [state, setState] = useState({
-    loading: false,
     error: null,
     films: [],
   });

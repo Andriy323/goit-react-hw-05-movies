@@ -7,7 +7,6 @@ const MovieDetails = () => {
   const [state, setState] = useState({
     item: {},
     error: null,
-    loading: false,
   });
   const navigate = useNavigate();
   const location = useLocation();
@@ -52,11 +51,13 @@ const MovieDetails = () => {
               <p className={css.pretitle}>Rating: {Number(vote_average).toFixed(1)}</p>
             </li>
           </ul>
-          <Link state={{ from }} to={`/movies/${movieId}/cast`}>
-            <button className={css.btn}>Cast</button>
+          <Link  className={css.link} state={{ from }} to={`/movies/${movieId}/cast`}>
+            {/* <button className={css.btn}>Cast</button> */}
+            Cast
           </Link>
-          <Link state={{ from }} to={`/movies/${movieId}/reviews`}>
-            <button className={css.btn}>Reviews</button>
+          <Link className={css.link} state={{ from }} to={`/movies/${movieId}/reviews`}>
+            {/* <button className={css.btn}>Reviews</button> */}
+            Reviews
           </Link>
         </div>
       </div>

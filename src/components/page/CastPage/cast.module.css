@@ -1,0 +1,16 @@
+.list{
+display: flex;
+margin-top: 30px;
+gap: 10px;
+flex-wrap: wrap;
+}
+.item{
+width: calc((100% - 70px) /8);
+}
+.pretitle {
+    margin-top: 5px;
+    color: #5a626b;
+    font-size: 16px;
+    font-weight: 600;
+  }
+  

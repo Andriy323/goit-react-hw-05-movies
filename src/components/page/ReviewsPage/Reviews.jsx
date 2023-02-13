@@ -1,6 +1,7 @@
 import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { getFilmsReviews } from 'components/shared/shared';
+import css from './reviews.module.css'
 const Reviews = () => {
   const [state, setState] = useState({
     data: [],
@@ -21,14 +22,14 @@ const Reviews = () => {
     fetchFilmsRevievs();
   }, [movieId]);
   const item = state.data.map(({ content, author }, index) => (
-    <li key={index}>
-      <h2>Name: {author}</h2>
-      <p>Content: {content}</p>
+    <li className={css.item} key={index}>
+      <h2 className={css.title}>Name: {author}</h2>
+      <p className={css.pretitle}>{content}</p>
     </li>
   ));
   return (
     <div>
-      <ul>{item}</ul>
+      <ul className={css.list}>{item}</ul>
     </div>
   );
 };
