@@ -10,11 +10,7 @@ const instance = axios.create({
 });
 
 export const getTraidingFilms = async page => {
-  const { data } = await instance.get('/trending/movie/day', {
-    params: {
-      page: page,
-    },
-  });
+  const { data } = await instance.get('/trending/movie/day');
   return data;
 };
 

@@ -1,18 +1,19 @@
 import { getTraidingFilms } from 'components/shared/shared';
 import { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import css from './home.module.css';
 const Home = () => {
   const [state, setState] = useState({
     loading: false,
     error: null,
     films: [],
-    page: 1
   });
   const location = useLocation();
   useEffect(() => {
     const fetchTraidingFilms = async () => {
       try {
-        const { results } = await getTraidingFilms(state.page);
+        const { results } = await getTraidingFilms();
+        console.log(results);
         setState(prevState => {
           return { ...prevState, films: [...prevState.films, ...results] };
         });
@@ -21,26 +22,28 @@ const Home = () => {
       }
     };
     fetchTraidingFilms();
-  }, [state.page]);
+  }, []);
 
-  const loadFilms = () => {
-    setState(prevState =>{
-      return {...prevState, page:  + 1}
-    });
-  };
-
-  const item = state.films.map(({ id, title }, index) => (
-    <li key={index}>
+  const item = state.films.map(({ id, title, poster_path, adult, release_date }, index) => (
+    <li key={index} className={css.items}>
       <Link state={{ from: location }} to={`/movies/${id}`}>
-        {title}
+        <div className={css.imgContainer+ " " + css.maskOne + " " + css.maskOneFrame}>
+        <img
+        className={css.image}
+          src={`https://image.tmdb.org/t/p/w200/${poster_path}`}
+          alt={title}
+        /></div>
+
+        
+        <h1 className={css.title}>{title}</h1>
+        {!adult && <p className={css.pretitle}>+18</p>}
+        <p className={css.pretitle}>{release_date}</p>
       </Link>
     </li>
   ));
   return (
-    <div>
-      <h2>Home</h2>
-      <ul>{item}</ul>
-      <button onClick={loadFilms}>Load</button>
+    <div className={css.container}>
+      <ul className={css.list}>{item}</ul>
     </div>
   );
 };
