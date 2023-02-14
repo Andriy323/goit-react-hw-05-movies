@@ -9,14 +9,16 @@ import { useEffect, useState, memo } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import notImage from '../../image/notImage.jpg';
-import { getFilmsId } from 'components/shared/shared';
+import { getFilmsId, getTrailerKey } from 'components/shared/shared';
 import PropTypes from 'prop-types';
 import css from './movies-details.module.css';
 import Loader from 'components/shared/Loader/Loader';
+import Trailer from 'components/Trailer/Trailer';
 const MovieDetails = () => {
   const [state, setState] = useState({
     item: {},
     loader: false,
+    keyTrailer: '',
   });
   const navigate = useNavigate();
   const location = useLocation();
@@ -31,6 +33,9 @@ const MovieDetails = () => {
         setState(prevState => {
           return { ...prevState, item: { ...result } };
         });
+
+        const key = await getTrailerKey(movieId);
+        setState(prev => ({ ...prev, keyTrailer: key }));
       } catch (error) {
         toast.error(
           ` An error occurred. Go to the main page or repeat the request.`
@@ -48,6 +53,8 @@ const MovieDetails = () => {
   const urlImage = poster_path
     ? `https://image.tmdb.org/t/p/w500/${poster_path}`
     : notImage;
+
+  console.log(state);
   return (
     <>
       <ToastContainer />
@@ -91,7 +98,10 @@ const MovieDetails = () => {
           >
             Reviews
           </Link>
+         {state.keyTrailer && <Trailer keyTrailer={state.keyTrailer}/>}
         </div>
+       
+
       </div>
       <Outlet />
     </>

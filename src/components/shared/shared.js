@@ -39,3 +39,25 @@ export const getFilmsReviews = async id => {
   const { data } = await instance.get(`/movie/${id}/reviews`);
   return data;
 };
+
+const getTrailerLang = async (id, lang) => {
+  const { data } = await instance.get(`/movie/${id}/videos`, {
+    params: { language: lang },
+  });
+
+  return data;
+};
+
+export const getTrailerKey = async id => {
+  const lang = ['uk-UA', 'ru-Ru', 'en-US'];
+  let keyTrailer = '';
+  for (let i = 0; i < lang.length; i++) {
+    const { results } = await getTrailerLang(id, lang[i]);
+    console.log(results);
+    if (results.length) {
+      keyTrailer = results[0].key;
+      break;
+    }
+  }
+  return keyTrailer;
+};
