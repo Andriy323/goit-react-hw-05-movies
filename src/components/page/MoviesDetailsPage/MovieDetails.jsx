@@ -8,6 +8,7 @@ import {
 import { useEffect, useState, memo } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import notImage from '../../image/notImage.jpg';
 import { getFilmsId } from 'components/shared/shared';
 import PropTypes from 'prop-types';
 import css from './movies-details.module.css';
@@ -44,6 +45,9 @@ const MovieDetails = () => {
     navigate(from);
   };
   const { original_title, overview, poster_path, vote_average } = state.item;
+  const urlImage = poster_path
+    ? `https://image.tmdb.org/t/p/original/${poster_path}`
+    : notImage;
   return (
     <>
       <ToastContainer />
@@ -52,14 +56,13 @@ const MovieDetails = () => {
         {'<== Back'}
       </button>
       <div className={css.containerImage}>
-        {poster_path && (
-          <img
-            className={css.image}
-            src={`https://image.tmdb.org/t/p/original${poster_path}`}
-            alt={original_title}
-            width="450"
-          />
-        )}
+        <img
+          className={css.image}
+          src={urlImage}
+          alt={original_title}
+          width="450"
+        />
+
         <div>
           <ul className={css.list}>
             <li className={css.item}>
