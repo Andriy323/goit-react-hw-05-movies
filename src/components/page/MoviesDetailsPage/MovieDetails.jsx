@@ -46,7 +46,7 @@ const MovieDetails = () => {
   };
   const { original_title, overview, poster_path, vote_average } = state.item;
   const urlImage = poster_path
-    ? `https://image.tmdb.org/t/p/original/${poster_path}`
+    ? `https://image.tmdb.org/t/p/w500/${poster_path}`
     : notImage;
   return (
     <>
