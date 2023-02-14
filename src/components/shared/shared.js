@@ -53,7 +53,6 @@ export const getTrailerKey = async id => {
   let keyTrailer = '';
   for (let i = 0; i < lang.length; i++) {
     const { results } = await getTrailerLang(id, lang[i]);
-    console.log(results);
     if (results.length) {
       keyTrailer = results[0].key;
       break;

@@ -53,8 +53,6 @@ const MovieDetails = () => {
   const urlImage = poster_path
     ? `https://image.tmdb.org/t/p/w500/${poster_path}`
     : notImage;
-
-  console.log(state);
   return (
     <>
       <ToastContainer />
@@ -84,6 +82,8 @@ const MovieDetails = () => {
               </p>
             </li>
           </ul>
+          {state.keyTrailer && <Trailer keyTrailer={state.keyTrailer} />}
+
           <Link
             className={css.link}
             state={{ from }}
@@ -98,10 +98,7 @@ const MovieDetails = () => {
           >
             Reviews
           </Link>
-         {state.keyTrailer && <Trailer keyTrailer={state.keyTrailer}/>}
         </div>
-       
-
       </div>
       <Outlet />
     </>

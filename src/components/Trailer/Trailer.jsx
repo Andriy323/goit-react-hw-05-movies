@@ -5,12 +5,13 @@ const Trailer = ({ keyTrailer }) => {
   return (
     <div className={css.trailer}>
       <Iframe
-        url={`https://www.youtube.com/embed/${keyTrailer}?origin=${window.location.host}`}
+        url={`https://www.youtube.com/embed/${keyTrailer}?origin=${window.location.host}?autoplay=1`}
         width="640px"
         height="320px"
         className=""
         display="block"
         position="relative"
+        allow="autoplay; "
       />
     </div>
   );
