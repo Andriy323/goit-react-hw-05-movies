@@ -1,7 +1,9 @@
 import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { getFilmsReviews } from 'components/shared/shared';
-import css from './reviews.module.css'
+import css from './reviews.module.css';
 const Reviews = () => {
   const [state, setState] = useState({
     data: [],
@@ -14,6 +16,11 @@ const Reviews = () => {
     const fetchFilmsRevievs = async () => {
       try {
         const { results } = await getFilmsReviews(movieId);
+        if (!results.length) {
+          toast.warning(`
+No reviews!`);
+        }
+
         setState(prevState => {
           return { prevState, data: [...results] };
         });
@@ -21,14 +28,18 @@ const Reviews = () => {
     };
     fetchFilmsRevievs();
   }, [movieId]);
+
   const item = state.data.map(({ content, author, created_at }, index) => (
     <li className={css.item} key={index}>
-      <h2 className={css.title}>Author: {author} created {new Date(created_at).toDateString()} </h2>
+      <h2 className={css.title}>
+        Author: {author} created {new Date(created_at).toDateString()}{' '}
+      </h2>
       <p className={css.pretitle}>{content}</p>
     </li>
   ));
   return (
     <div>
+      <ToastContainer />
       <ul className={css.list}>{item}</ul>
     </div>
   );

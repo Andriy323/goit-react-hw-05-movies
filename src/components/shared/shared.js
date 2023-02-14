@@ -26,6 +26,7 @@ export const getFilmsSearch = async (query, page = 1) => {
       page,
     },
   });
+
   return data;
 };
 
