@@ -4,6 +4,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { getFilmsReviews } from 'components/shared/shared';
 import css from './reviews.module.css';
+import Loader from 'components/shared/Loader/Loader';
 const Reviews = () => {
   const [state, setState] = useState({
     data: [],
@@ -14,6 +15,7 @@ const Reviews = () => {
   useEffect(() => {
     const fetchFilmsRevievs = async () => {
       try {
+        setState(prev => ({ ...prev, loader: true }));
         const { results } = await getFilmsReviews(movieId);
         if (!results.length) {
           toast.warning(`
@@ -27,6 +29,8 @@ No reviews!`);
         toast.error(
           ` An error occurred. Go to the main page or repeat the request.`
         );
+      } finally {
+        setState(prev => ({ ...prev, loader: false }));
       }
     };
     fetchFilmsRevievs();
@@ -42,6 +46,7 @@ No reviews!`);
   ));
   return (
     <div>
+      {state.loader && <Loader />}
       <ToastContainer />
       <ul className={css.list}>{item}</ul>
     </div>

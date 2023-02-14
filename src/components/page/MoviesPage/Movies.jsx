@@ -32,7 +32,6 @@ const Movies = () => {
   const onHangleSubmit = query => {
     setSearchParams({ search: query });
   };
-  console.log('loader Mov', loader);
   return (
     <div>
       {loader && <Loader />}

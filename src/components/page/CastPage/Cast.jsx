@@ -5,6 +5,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { getFilmsCredits } from 'components/shared/shared';
 import notImage from '../../image/notImageProfil.png';
 import css from './cast.module.css';
+import Loader from 'components/shared/Loader/Loader';
 const Cast = () => {
   const [state, setState] = useState({
     item: [],
@@ -15,6 +16,7 @@ const Cast = () => {
   useEffect(() => {
     const fetchFilmsCast = async () => {
       try {
+        setState(prev => ({ ...prev, loader: true }));
         const { cast } = await getFilmsCredits(movieId);
         if (!cast.length) {
           toast.warning(`
@@ -27,6 +29,8 @@ No credits!`);
         toast.error(
           ` An error occurred. Go to the main page or repeat the request.`
         );
+      } finally {
+        setState(prev => ({ ...prev, loader: false }));
       }
     };
     fetchFilmsCast();
@@ -45,6 +49,7 @@ No credits!`);
   });
   return (
     <div>
+      {state.loader && <Loader />}
       <ToastContainer />
       <ul className={css.list}>{items}</ul>
     </div>

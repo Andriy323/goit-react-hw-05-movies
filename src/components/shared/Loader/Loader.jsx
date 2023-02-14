@@ -1,7 +1,8 @@
 import css from './loader.module.css'
 const Loader = () =>{
 return(
-<span className={css.loader}></span>
+    <div className={css.overlay}><span className={css.loader}></span></div>
+
 )
 } 
 
