@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { getFilmsCredits } from 'components/shared/shared';
-import notImage from '../../image/notImageProfil.png';
+import notImage from '../../image/noavatar.png';
 import css from './cast.module.css';
 import Loader from 'components/shared/Loader/Loader';
 const Cast = () => {
