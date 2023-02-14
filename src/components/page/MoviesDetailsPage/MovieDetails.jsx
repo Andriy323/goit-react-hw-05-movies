@@ -93,7 +93,6 @@ const MovieDetails = () => {
           </Link>
         </div>
       </div>
-
       <Outlet />
     </>
   );
