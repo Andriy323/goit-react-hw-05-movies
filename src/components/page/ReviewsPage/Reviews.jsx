@@ -8,7 +8,6 @@ const Reviews = () => {
   const [state, setState] = useState({
     data: [],
     loader: false,
-    error: null,
   });
   const { movieId } = useParams();
 
@@ -24,7 +23,11 @@ No reviews!`);
         setState(prevState => {
           return { prevState, data: [...results] };
         });
-      } catch (error) {}
+      } catch (error) {
+        toast.error(
+          ` An error occurred. Go to the main page or repeat the request.`
+        );
+      }
     };
     fetchFilmsRevievs();
   }, [movieId]);

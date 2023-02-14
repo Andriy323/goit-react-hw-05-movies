@@ -1,5 +1,7 @@
 import { getTraidingFilms } from 'components/shared/shared';
 import { useEffect, useState } from 'react';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { useLocation } from 'react-router-dom';
 import RenderFilms from 'components/RenderFilms/RenderFilms';
 const Home = () => {
@@ -17,13 +19,20 @@ const Home = () => {
           return { ...prevState, films: [...prevState.films, ...results] };
         });
       } catch (error) {
-        console.log(error);
+        toast.error(
+          ` An error occurred. Go to the main page or repeat the request.`
+        );
       }
     };
     fetchTraidingFilms();
   }, []);
 
-  return <RenderFilms items={state.films} location={location} />;
+  return (
+    <>
+      <ToastContainer />
+      <RenderFilms items={state.films} location={location} />
+    </>
+  );
 };
 
 export default Home;
