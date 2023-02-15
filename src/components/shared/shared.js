@@ -51,6 +51,7 @@ const getTrailerLang = async (id, lang) => {
 export const getTrailerKey = async id => {
   const lang = ['uk-UA', 'ru-Ru', 'en-US'];
   let keyTrailer = '';
+  
   for (let i = 0; i < lang.length; i++) {
     const { results } = await getTrailerLang(id, lang[i]);
     if (results.length) {

@@ -5,7 +5,7 @@ import {
   useLocation,
   Outlet,
 } from 'react-router-dom';
-import { useEffect, useState, memo } from 'react';
+import { useEffect, useState, memo, Suspense } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import notImage from '../../image/notImage.jpg';
@@ -100,7 +100,9 @@ const MovieDetails = () => {
           </Link>
         </div>
       </div>
-      <Outlet />
+      <Suspense>
+        <Outlet />
+      </Suspense>
     </>
   );
 };
