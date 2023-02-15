@@ -11,17 +11,13 @@ const Reviews = () => {
     data: [],
     loader: false,
   });
-  // const [scrol, setScrol] = useState(false);
+  const [scrol, setScrol] = useState(false);
   const { movieId } = useParams();
   const refStart = useRef(null);
 
-  // useEffect(() => {
-  //   if (scrol) {
-  //     scrols(refStart)
-  //   }
-  // }, [scrol]);
-
-
+  useEffect(() => {
+    if (scrol) scrols(refStart);
+  }, [scrol]);
 
   useEffect(() => {
     const fetchFilmsRevievs = async () => {
@@ -31,14 +27,7 @@ const Reviews = () => {
         setState(prevState => {
           return { prevState, data: [...results] };
         });
-        if (!results.length) {
-          toast.warning(`
-No reviews!`);
-        } else {
-          scrols(refStart)
-
-          // setScrol(true);
-        }
+        results.length ? setScrol(true) : toast.warning(`No credits!`);
       } catch (error) {
         toast.error(
           ` An error occurred. Go to the main page or repeat the request.`
@@ -50,8 +39,6 @@ No reviews!`);
     fetchFilmsRevievs();
   }, [movieId]);
 
-
-
   const item = state.data.map(({ content, author, created_at }, index) => (
     <li className={css.item} key={index}>
       <h2 className={css.title}>
@@ -61,7 +48,7 @@ No reviews!`);
     </li>
   ));
   return (
-    <div   ref={refStart}>
+    <div ref={refStart}>
       {state.loader && <Loader />}
       <ToastContainer />
       <ul className={css.list}>{item}</ul>

@@ -18,10 +18,7 @@ const Cast = () => {
   const refStart = useRef(null);
 
   useEffect(() => {
-    if (scrol) {
-      // buttonHandler(refStart);
-      scrols(refStart);
-    }
+    if (scrol) scrols(refStart);
   }, [scrol]);
 
   useEffect(() => {
@@ -32,12 +29,7 @@ const Cast = () => {
         setState(prevState => {
           return { prevState, item: [...cast] };
         });
-        if (!cast.length) {
-          toast.warning(`
-No credits!`);
-        } else {
-          setScrol(true);
-        }
+        cast.length ? setScrol(true) : toast.warning(`No credits!`);
       } catch (error) {
         toast.error(
           ` An error occurred. Go to the main page or repeat the request.`
