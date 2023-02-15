@@ -1,8 +1,11 @@
 .list {
   display: flex;
+  flex-wrap: wrap;
   margin-top: 30px;
   gap: 10px;
-  flex-wrap: wrap;
+
+  opacity: 0;
+  animation: ani 3s forwards;
 }
 .item {
   width: calc((100% - 70px) / 8);
@@ -17,4 +20,13 @@
 .image {
   height: 70%;
   width: auto;
+}
+
+@keyframes ani {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
