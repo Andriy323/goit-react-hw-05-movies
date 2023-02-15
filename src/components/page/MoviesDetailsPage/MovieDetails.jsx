@@ -101,7 +101,9 @@ const MovieDetails = () => {
         </div>
       </div>
       <Suspense>
-        <Outlet />
+        <div id="scrolTo">
+          <Outlet />
+        </div>
       </Suspense>
     </>
   );

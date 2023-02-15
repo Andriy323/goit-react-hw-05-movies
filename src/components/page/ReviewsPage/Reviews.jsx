@@ -17,17 +17,16 @@ const Reviews = () => {
       try {
         setState(prev => ({ ...prev, loader: true }));
         const { results } = await getFilmsReviews(movieId);
+        setState(prevState => {
+          return { prevState, data: [...results] };
+        });
         if (!results.length) {
           toast.warning(`
 No reviews!`);
         } else {
-          const hiddenElement = document.getElementById('reviews');
+          const hiddenElement = document.getElementById('scrolTo');
           hiddenElement.scrollIntoView({ block: 'start', behavior: 'smooth' });
         }
-
-        setState(prevState => {
-          return { prevState, data: [...results] };
-        });
       } catch (error) {
         toast.error(
           ` An error occurred. Go to the main page or repeat the request.`
@@ -39,6 +38,13 @@ No reviews!`);
     fetchFilmsRevievs();
   }, [movieId]);
 
+  // function scrolTo(){
+
+  //     // const hiddenElement = document.getElementById('reviews');
+  //     hiddenElement.scrollIntoView({ block: 'start', behavior: 'smooth' });
+
+  // }
+
   const item = state.data.map(({ content, author, created_at }, index) => (
     <li className={css.item} key={index}>
       <h2 className={css.title}>
@@ -48,13 +54,11 @@ No reviews!`);
     </li>
   ));
   return (
-    <div>
+    <>
       {state.loader && <Loader />}
       <ToastContainer />
-      <ul id="reviews" className={css.list}>
-        {item}
-      </ul>
-    </div>
+      <ul className={css.list}>{item}</ul>
+    </>
   );
 };
 

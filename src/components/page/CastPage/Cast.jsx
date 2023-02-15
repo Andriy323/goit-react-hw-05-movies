@@ -18,16 +18,16 @@ const Cast = () => {
       try {
         setState(prev => ({ ...prev, loader: true }));
         const { cast } = await getFilmsCredits(movieId);
+        setState(prevState => {
+          return { prevState, item: [...cast] };
+        });
         if (!cast.length) {
           toast.warning(`
 No credits!`);
         } else {
-          const hiddenElement = document.getElementById('cast');
+          const hiddenElement = document.getElementById('scrolTo');
           hiddenElement.scrollIntoView({ block: 'start', behavior: 'smooth' });
         }
-        setState(prevState => {
-          return { prevState, item: [...cast] };
-        });
       } catch (error) {
         toast.error(
           ` An error occurred. Go to the main page or repeat the request.`
@@ -51,11 +51,11 @@ No credits!`);
     );
   });
   return (
-    <div id="cast">
+    <>
       {state.loader && <Loader />}
       <ToastContainer />
       <ul className={css.list}>{items}</ul>
-    </div>
+    </>
   );
 };
 
