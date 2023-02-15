@@ -21,6 +21,9 @@ const Cast = () => {
         if (!cast.length) {
           toast.warning(`
 No credits!`);
+        } else {
+          const hiddenElement = document.getElementById('cast');
+          hiddenElement.scrollIntoView({ block: 'start', behavior: 'smooth' });
         }
         setState(prevState => {
           return { prevState, item: [...cast] };
@@ -48,7 +51,7 @@ No credits!`);
     );
   });
   return (
-    <div>
+    <div id="cast">
       {state.loader && <Loader />}
       <ToastContainer />
       <ul className={css.list}>{items}</ul>

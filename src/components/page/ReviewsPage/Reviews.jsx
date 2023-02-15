@@ -20,6 +20,9 @@ const Reviews = () => {
         if (!results.length) {
           toast.warning(`
 No reviews!`);
+        } else {
+          const hiddenElement = document.getElementById('reviews');
+          hiddenElement.scrollIntoView({ block: 'start', behavior: 'smooth' });
         }
 
         setState(prevState => {
@@ -48,7 +51,9 @@ No reviews!`);
     <div>
       {state.loader && <Loader />}
       <ToastContainer />
-      <ul className={css.list}>{item}</ul>
+      <ul id="reviews" className={css.list}>
+        {item}
+      </ul>
     </div>
   );
 };
