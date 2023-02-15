@@ -10,7 +10,17 @@ const Reviews = () => {
     data: [],
     loader: false,
   });
+  const [scrol, setScrol] = useState(false);
   const { movieId } = useParams();
+
+  useEffect(() => {
+    if (scrol) {
+      const toScroll = document.getElementById('reviews');
+      if (toScroll) {
+        toScroll.scrollIntoView({ block: 'start', behavior: 'smooth' });
+      }
+    }
+  }, [scrol]);
 
   useEffect(() => {
     const fetchFilmsRevievs = async () => {
@@ -24,8 +34,7 @@ const Reviews = () => {
           toast.warning(`
 No reviews!`);
         } else {
-          const hiddenElement = document.getElementById('scrolTo');
-          hiddenElement.scrollIntoView({ block: 'start', behavior: 'smooth' });
+          setScrol(true);
         }
       } catch (error) {
         toast.error(
@@ -38,13 +47,6 @@ No reviews!`);
     fetchFilmsRevievs();
   }, [movieId]);
 
-  // function scrolTo(){
-
-  //     // const hiddenElement = document.getElementById('reviews');
-  //     hiddenElement.scrollIntoView({ block: 'start', behavior: 'smooth' });
-
-  // }
-
   const item = state.data.map(({ content, author, created_at }, index) => (
     <li className={css.item} key={index}>
       <h2 className={css.title}>
@@ -54,11 +56,11 @@ No reviews!`);
     </li>
   ));
   return (
-    <>
+    <div id="reviews">
       {state.loader && <Loader />}
       <ToastContainer />
       <ul className={css.list}>{item}</ul>
-    </>
+    </div>
   );
 };
 

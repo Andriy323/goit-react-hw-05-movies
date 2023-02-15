@@ -11,8 +11,19 @@ const Cast = () => {
     item: [],
     loader: false,
   });
+  const [scrol, setScrol] = useState(false);
 
   const { movieId } = useParams();
+
+  useEffect(() => {
+    if (scrol) {
+      const toScroll = document.getElementById('cast');
+      if (toScroll) {
+        toScroll.scrollIntoView({ block: 'start', behavior: 'smooth' });
+      }
+    }
+  }, [scrol]);
+
   useEffect(() => {
     const fetchFilmsCast = async () => {
       try {
@@ -25,8 +36,7 @@ const Cast = () => {
           toast.warning(`
 No credits!`);
         } else {
-          const hiddenElement = document.getElementById('scrolTo');
-          hiddenElement.scrollIntoView({ block: 'start', behavior: 'smooth' });
+          setScrol(true);
         }
       } catch (error) {
         toast.error(
@@ -36,6 +46,7 @@ No credits!`);
         setState(prev => ({ ...prev, loader: false }));
       }
     };
+
     fetchFilmsCast();
   }, [movieId]);
   const items = state.item.map(({ name, character, profile_path }, index) => {
@@ -51,11 +62,11 @@ No credits!`);
     );
   });
   return (
-    <>
+    <div id="cast">
       {state.loader && <Loader />}
       <ToastContainer />
       <ul className={css.list}>{items}</ul>
-    </>
+    </div>
   );
 };
 
