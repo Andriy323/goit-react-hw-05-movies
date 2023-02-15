@@ -1,26 +1,26 @@
 import { useParams } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { getFilmsCredits } from 'components/shared/shared';
 import notImage from '../../image/noavatar.png';
 import css from './cast.module.css';
 import Loader from 'components/shared/Loader/Loader';
+import { scrols } from 'components/shared/scrols';
+
 const Cast = () => {
   const [state, setState] = useState({
     item: [],
     loader: false,
   });
   const [scrol, setScrol] = useState(false);
-
   const { movieId } = useParams();
+  const refStart = useRef(null);
 
   useEffect(() => {
     if (scrol) {
-      const toScroll = document.getElementById('cast');
-      if (toScroll) {
-        toScroll.scrollIntoView({ block: 'start', behavior: 'smooth' });
-      }
+      // buttonHandler(refStart);
+      scrols(refStart);
     }
   }, [scrol]);
 
@@ -49,6 +49,11 @@ No credits!`);
 
     fetchFilmsCast();
   }, [movieId]);
+
+  // const buttonHandler = ref => {
+  //   ref.current.scrollIntoView({ block: 'start', behavior: 'smooth' });
+  // };
+
   const items = state.item.map(({ name, character, profile_path }, index) => {
     const urlImage = profile_path
       ? `https://image.tmdb.org/t/p/w200/${profile_path}`
@@ -62,7 +67,7 @@ No credits!`);
     );
   });
   return (
-    <div id="cast">
+    <div ref={refStart}>
       {state.loader && <Loader />}
       <ToastContainer />
       <ul className={css.list}>{items}</ul>

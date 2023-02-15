@@ -1,26 +1,27 @@
 import { useParams } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { getFilmsReviews } from 'components/shared/shared';
 import css from './reviews.module.css';
 import Loader from 'components/shared/Loader/Loader';
+import { scrols } from 'components/shared/scrols';
 const Reviews = () => {
   const [state, setState] = useState({
     data: [],
     loader: false,
   });
-  const [scrol, setScrol] = useState(false);
+  // const [scrol, setScrol] = useState(false);
   const { movieId } = useParams();
+  const refStart = useRef(null);
 
-  useEffect(() => {
-    if (scrol) {
-      const toScroll = document.getElementById('reviews');
-      if (toScroll) {
-        toScroll.scrollIntoView({ block: 'start', behavior: 'smooth' });
-      }
-    }
-  }, [scrol]);
+  // useEffect(() => {
+  //   if (scrol) {
+  //     scrols(refStart)
+  //   }
+  // }, [scrol]);
+
+
 
   useEffect(() => {
     const fetchFilmsRevievs = async () => {
@@ -34,7 +35,9 @@ const Reviews = () => {
           toast.warning(`
 No reviews!`);
         } else {
-          setScrol(true);
+          scrols(refStart)
+
+          // setScrol(true);
         }
       } catch (error) {
         toast.error(
@@ -47,6 +50,8 @@ No reviews!`);
     fetchFilmsRevievs();
   }, [movieId]);
 
+
+
   const item = state.data.map(({ content, author, created_at }, index) => (
     <li className={css.item} key={index}>
       <h2 className={css.title}>
@@ -56,7 +61,7 @@ No reviews!`);
     </li>
   ));
   return (
-    <div id="reviews">
+    <div   ref={refStart}>
       {state.loader && <Loader />}
       <ToastContainer />
       <ul className={css.list}>{item}</ul>
