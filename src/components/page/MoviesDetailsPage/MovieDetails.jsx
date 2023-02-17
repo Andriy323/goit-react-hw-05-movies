@@ -9,7 +9,7 @@ import { useEffect, useState, memo, Suspense } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import notImage from '../../image/notImage.jpg';
-import { getFilmsId, getTrailerKey } from 'components/shared/shared';
+import { getFilmDetails, getTrailerKey } from 'components/shared/shared';
 import PropTypes from 'prop-types';
 import css from './movies-details.module.css';
 import Loader from 'components/shared/Loader/Loader';
@@ -29,11 +29,10 @@ const MovieDetails = () => {
     const fetchTraidingFilmsId = async () => {
       try {
         setState(prevLoader => ({ ...prevLoader, loader: true }));
-        const result = await getFilmsId(movieId);
+        const result = await getFilmDetails(movieId);
         setState(prevState => {
           return { ...prevState, item: { ...result } };
         });
-
         const key = await getTrailerKey(movieId);
         setState(prev => ({ ...prev, keyTrailer: key }));
       } catch (error) {
@@ -49,7 +48,8 @@ const MovieDetails = () => {
   const Back = () => {
     navigate(from);
   };
-  const { original_title, overview, poster_path, vote_average } = state.item;
+  const { original_title, overview, poster_path, vote_average, title } =
+    state.item;
   const urlImage = poster_path
     ? `https://image.tmdb.org/t/p/w500/${poster_path}`
     : notImage;
@@ -71,7 +71,7 @@ const MovieDetails = () => {
         <div>
           <ul className={css.list}>
             <li className={css.item}>
-              <h1 className={css.title}>{original_title}</h1>
+              <h1 className={css.title}>{title}</h1>
             </li>
             <li className={css.item}>
               <p className={css.pretitle}>{overview}</p>

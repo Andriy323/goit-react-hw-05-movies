@@ -14,8 +14,25 @@ export const getTraidingFilms = async page => {
   return data;
 };
 
-export const getFilmsId = async id => {
-  const { data } = await instance.get(`/movie/${id}`);
+export const getFilmsId = async (id, lang = 'en-US') => {
+  const { data } = await instance.get(`/movie/${id}`, {
+    params: { language: lang },
+  });
+
+  return data;
+};
+
+export const getFilmDetails = async id => {
+  const uk = getFilmsId(id, 'uk-UA');
+  const ru = getFilmsId(id, 'ru-Ru');
+  const en = getFilmsId(id, 'en-US');
+
+  const data = Promise.all([uk, ru, en])
+    .then(value => {
+      const valueLang = value.find(item => item.overview);
+      return valueLang;
+    })
+    .catch(error => console.log(error));
   return data;
 };
 
@@ -49,15 +66,15 @@ const getTrailerLang = async (id, lang) => {
 };
 
 export const getTrailerKey = async id => {
-  const lang = ['uk-UA', 'ru-Ru', 'en-US'];
-  let keyTrailer = '';
-  
-  for (let i = 0; i < lang.length; i++) {
-    const { results } = await getTrailerLang(id, lang[i]);
-    if (results.length) {
-      keyTrailer = results[0].key;
-      break;
-    }
-  }
-  return keyTrailer;
+  const ua = getTrailerLang(id, 'uk-UA');
+  const ru = getTrailerLang(id, 'ru-Ru');
+  const en = getTrailerLang(id, 'en-US');
+  const promisTrailer = Promise.all([ua, ru, en])
+    .then(value => {
+      const data = value.find(({ results }) => results.length > 0);
+      return data ? data.results[0].key : '';
+    })
+    .catch(error => console.log(error, 'error'));
+
+  return promisTrailer;
 };
